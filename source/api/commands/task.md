@@ -26,13 +26,15 @@ cy.task('log', 'This will be output to the terminal')
 ```
 ```javascript
 // in plugins file
-on('task', {
-  log (message) {
-    console.log(message)
+module.exports = on => {
+  on('task', {
+    log (message) {
+      console.log(message)
 
-    return null
-  }
-})
+      return null
+    }
+  })
+}
 ```
 
 ## Arguments
@@ -105,15 +107,17 @@ cy.task('readFileMaybe', 'my-file.txt').then((textOrNull) => { ... })
 // in plugins/index.js
 const fs = require('fs')
 
-on('task', {
-  readFileMaybe (filename) {
-    if (fs.existsSync(filename)) {
-      return fs.readFileSync(filename, 'utf8')
-    }
+module.exports = on => {
+  on('task', {
+    readFileMaybe (filename) {
+      if (fs.existsSync(filename)) {
+        return fs.readFileSync(filename, 'utf8')
+      }
 
-    return null
-  }
-})
+      return null
+    }
+  })
+}
 ```
 
 ### Seed a database
